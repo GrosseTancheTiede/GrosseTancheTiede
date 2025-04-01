@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#Définition des variables - chemin - dates - user connecté
 # === VARIABLES ===
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 LOG_DIR="./logs"
@@ -9,6 +10,7 @@ PACKAGE_LIST="./lists/packages.txt"
 USERNAME=$(logname)
 USER_HOME="/home/$USERNAME"
 
+#Gérer l'installation des paquets
 # === FUNCTIONS ===
 log() {
   echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
@@ -37,6 +39,7 @@ ask_yes_no() {
   esac
 }
 
+#Préparation répertoire et fichiers + vérif root
 # === INITIAL SETUP ===
 mkdir -p "$LOG_DIR"
 touch "$LOG_FILE"
@@ -47,6 +50,7 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
+#Installation et mise à jour paquets system
 # === 1. SYSTEM UPDATE ===
 log "Updating system packages..."
 apt update && apt upgrade -y &>>"$LOG_FILE"

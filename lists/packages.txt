@@ -3,3 +3,6 @@ net-tools
 htop
 curl
 ssh
+sudo
+mosquitto
+docker
